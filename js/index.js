@@ -4,3 +4,5 @@ const update=()=>{if(document.body.classList.contains('editing'))return;const ce
 document.querySelectorAll('.grid-image video').forEach(v=>{v.addEventListener('click',e=>{e.stopPropagation();if(v.paused)v.play().catch(()=>{});else v.pause()});v.addEventListener('waiting',()=>v.classList.add('video-loading'));v.addEventListener('playing',()=>v.classList.remove('video-loading'))});
 
 document.querySelectorAll('.grid-image video').forEach(v=>{v.muted=true;v.defaultMuted=true;v.setAttribute('muted','');v.playsInline=true;v.setAttribute('playsinline','');v.play().catch(()=>{})});
+
+const lazyVideos=[...document.querySelectorAll('.grid-image video')];const lazyObserver=new IntersectionObserver(entries=>{entries.forEach(({target:v,isIntersecting})=>{if(isIntersecting){v.preload='metadata';v.load();v.play().catch(()=>{});}else{v.pause()}})},{rootMargin:'500px 0px',threshold:.05});lazyVideos.forEach(v=>lazyObserver.observe(v));
