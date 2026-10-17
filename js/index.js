@@ -1,7 +1,12 @@
 import { preloadImages } from './utils.js'; // Import utility function to preload images
 
 gsap.registerPlugin(ScrollTrigger); // Register GSAP's ScrollTrigger plugin
-gsap.registerPlugin(SplitText);     // Register GSAP's SplitText plugin
+const splitText = (element) => {
+  if (typeof SplitText !== 'undefined') return new SplitText(element, {type: 'chars'});
+  const chars = [...element.textContent].map(char => { const span = document.createElement('span'); span.textContent = char === ' ' ? '\u00a0' : char; return span; });
+  element.replaceChildren(...chars);
+  return {chars};
+};
 
 const grid = document.querySelector('.grid'); // Select the container that holds all grid items
 const gridImages = grid.querySelectorAll('.grid__item-imgwrap'); // Select all elements with the class '.grid__item-imgwrap'
@@ -9,7 +14,7 @@ const gridImages = grid.querySelectorAll('.grid__item-imgwrap'); // Select all e
 const marqueeInner = document.querySelector('.mark > .mark__inner'); // Select the inner element of the marquee
 
 const textElement = document.querySelector('.text'); // Select the text element
-var splitTextEl = new SplitText(textElement, {type: 'chars'}); // Split the text into individual characters for animation
+var splitTextEl = splitText(textElement); // Split the text into individual characters for animation
 
 const gridFull = document.querySelector('.grid--full'); // Select the full grid container
 
@@ -156,7 +161,7 @@ const animateGridFull = () => {
 
 const animateCredits = () => {
   creditsTexts.forEach(creditsText => {
-    const splitCredits = new SplitText(creditsText, { type: 'chars' }); // Split each credits text into characters
+    const splitCredits = splitText(creditsText); // Split each credits text into characters
 
     // GSAP timeline for the credits animation
     gsap.timeline({
