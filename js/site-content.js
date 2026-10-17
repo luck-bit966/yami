@@ -1,1 +1,14 @@
-(async()=>{const root=document.querySelector('#publishedCanvas');if(!root||!indexedDB)return;const req=indexedDB.open('wjy-studio-v1',1);req.onsuccess=()=>{const db=req.result,q=db.transaction('meta').objectStore('meta').get('state');q.onsuccess=async()=>{const state=q.result;if(!state?.published)return;const wanted=location.pathname.endsWith('portfolio.html')?'portfolio':'home';const page=state.pages.find(p=>p.type===wanted||p.name===(wanted==='home'?'首页':'作品集'));if(!page)return;for(const l of page.layers){if(l.hidden)continue;const ar=db.transaction('assets').objectStore('assets').get(l.asset);ar.onsuccess=()=>{const a=ar.result;if(!a)return;const e=document.createElement('div');e.className='published-item';e.style.cssText=`left:${l.x}%;top:${l.y}%;width:${l.w}%;height:${l.h}%;transform:rotate(${l.r}deg)`;const m=a.kind==='视频'?document.createElement('video'):document.createElement('img');m.src=URL.createObjectURL(a.blob);if(a.kind==='视频'){m.autoplay=true;m.loop=true;m.muted=true;m.playsInline=true}e.append(m);root.append(e)}}}}}})();
+(async()=>{
+ const root=document.querySelector('#publishedCanvas');
+ if(!root||!indexedDB)return;
+ const req=indexedDB.open('wjy-studio-v1',1);
+ req.onsuccess=()=>{
+  const db=req.result, q=db.transaction('meta').objectStore('meta').get('state');
+  q.onsuccess=()=>{
+   const state=q.result;if(!state?.published)return;
+   const wanted=location.pathname.endsWith('portfolio.html')?'portfolio':'home';
+   const page=state.pages.find(p=>p.type===wanted||p.name===(wanted==='home'?'首页':'作品集'));if(!page)return;
+   page.layers.forEach(l=>{if(l.hidden)return;const ar=db.transaction('assets').objectStore('assets').get(l.asset);ar.onsuccess=()=>{const a=ar.result;if(!a)return;const e=document.createElement('div');e.className='published-item';e.style.cssText=`left:${l.x}%;top:${l.y}%;width:${l.w}%;height:${l.h}%;transform:rotate(${l.r}deg)`;const m=a.kind==='视频'?document.createElement('video'):document.createElement('img');m.src=URL.createObjectURL(a.blob);if(a.kind==='视频'){m.autoplay=true;m.loop=true;m.muted=true;m.playsInline=true}e.append(m);root.append(e)}});
+  };
+ };
+})();
