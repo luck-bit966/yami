@@ -1,6 +1,8 @@
 (function addProductionShowcase(){
  const css=document.createElement('link');css.rel='stylesheet';css.href='css/pipeline.css';document.head.appendChild(css);
  const orbit=document.createElement('script');orbit.src='js/orbit.js';document.body.appendChild(orbit);
+ const heroCss=document.createElement('link');heroCss.rel='stylesheet';heroCss.href='css/hero-motion.css';document.head.appendChild(heroCss);
+ const heroScript=document.createElement('script');heroScript.src='js/hero-motion.js';document.body.appendChild(heroScript);
  const intro=document.querySelector('.intro');
  if(intro&&!intro.querySelector('.intro-stats')){const stats=document.createElement('div');stats.className='intro-stats';stats.innerHTML='<span><b>10万+</b>全网粉丝</span><span><b>300+</b>短视频作品</span><span><b>AI × 增长</b>内容方法</span>';intro.insertBefore(stats,intro.querySelector('.scroll'));}
  const work=document.querySelector('#work');
