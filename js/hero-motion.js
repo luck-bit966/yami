@@ -2,7 +2,7 @@
  const intro=document.querySelector('.intro');if(!intro)return;
  intro.classList.add('hero-stage');
  const startup=document.createElement('div');startup.className='hero-startup';startup.setAttribute('aria-hidden','true');startup.innerHTML='<span>JIAYI</span><b>.exe</b>';
- const visual=document.createElement('div');visual.className='hero-portrait';visual.innerHTML='<div class="portrait-scan"></div><img src="img/bg.jpg" alt="AI视觉创作人物占位图">';
+ const visual=document.createElement('div');visual.className='hero-portrait';visual.innerHTML='<div class="portrait-scan"></div><img src="img/portfolio/p-114.jpg" alt="AI视觉创作人物占位图">';
  const collage=document.createElement('div');collage.className='hero-collage';collage.innerHTML='<span class="hero-chip chip-tools">AI TOOLS<br><b>ChatGPT · Gemini · 即梦</b></span><span class="hero-chip chip-project">PROJECTS<br><b>CONTENT / MOTION / GROWTH</b></span><span class="hero-tape">JIAYI / 01—03</span>';
  intro.prepend(startup,visual,collage);
  const title=intro.querySelector('h1');if(title){title.dataset.heroTitle='';title.innerHTML='<span>NOT YOUR</span><em>AVERAGE GIRL.</em>'}
