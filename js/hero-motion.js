@@ -7,6 +7,7 @@
  intro.prepend(startup,visual,collage);
  const title=intro.querySelector('h1');if(title){title.dataset.heroTitle='';title.innerHTML='<span>NOT YOUR</span><em>AVERAGE GIRL.</em>'}
  const desc=intro.querySelector('.desc');if(desc)desc.innerHTML='用 AI 创造内容，也创造更多可能。<br><small>AI 内容运营｜短视频运营｜广告投放｜品牌营销</small>';
+ const cta=document.createElement('div');cta.className='hero-cta';cta.innerHTML='<a href="#work">看看我做的事 ↗</a><a href="portfolio.html">认识我一点</a>';desc.after(cta);
  let raf=0,tx=0,ty=0,cx=0,cy=0;
  const move=e=>{if(matchMedia('(prefers-reduced-motion: reduce)').matches)return;tx=(e.clientX/innerWidth-.5)*14;ty=(e.clientY/innerHeight-.5)*10;if(!raf)raf=requestAnimationFrame(loop)};
  const loop=()=>{cx+=(tx-cx)*.08;cy+=(ty-cy)*.08;intro.style.setProperty('--hero-x',cx.toFixed(2)+'px');intro.style.setProperty('--hero-y',cy.toFixed(2)+'px');raf=0;if(Math.abs(tx-cx)>.05||Math.abs(ty-cy)>.05)raf=requestAnimationFrame(loop)};
